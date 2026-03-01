@@ -5621,27 +5621,6 @@ namespace Xv2CoreLib.BAC
         public override string Type => $"ProjectileCallBack";
         [YAXDontSerialize]
         public override int TypeID => 31;
-        public enum SkillTypes : byte
-        {
-            Common=0x0,
-            Unkown1=0x1,
-            Unkown2=0x2,
-            AwokenSkill=0x3,
-            Uknwown3=0x4,
-            SuperSkill=0x5,
-            UltimateSkill = 0x6,
-            EvasiveSkill=0x7,
-            Unkown4=0x8,
-            KiBlastSkill=0x9,
-            Unkown5=0xA,
-            Unkown6 = 0xB,
-            Unkown7 = 0xC,
-            Unkown8 = 0xD,
-            Unkown9 = 0xE,
-            Unkown10 = 0xF,
-
-        }
-
 
         [YAXAttributeFor("I_08")]
         [YAXSerializeAs("value")]
@@ -5651,13 +5630,13 @@ namespace Xv2CoreLib.BAC
         public int I_12 { get; set; }
         [YAXAttributeFor("BACEntryPass")]
         [YAXSerializeAs("value")]
-        public ushort BACEntryPass { get; set; }
+        public ushort I_16{ get; set; }
         [YAXAttributeFor("I_18")]
         [YAXSerializeAs("value")]
         public byte I_18 { get; set; }
         [YAXAttributeFor("SkillType")]
         [YAXSerializeAs("value")]
-        public SkillTypes SkillType { get; set; }
+        public BAC_Type8.EepkTypeEnum SkillType { get; set; }
         [YAXAttributeFor("SkillID")]
         [YAXSerializeAs("value")]
         public ushort I_20 { get; set; }
@@ -5667,7 +5646,7 @@ namespace Xv2CoreLib.BAC
         [YAXAttributeFor("HitboxSize")]
         [YAXSerializeAs("value")]
         [YAXFormat("0.0##########")]
-        public float HitboxSize { get; set; }
+        public float F_24{ get; set; }
         [YAXAttributeFor("F_28")]
         [YAXSerializeAs("value")]
         [YAXFormat("0.0##########")]
@@ -5712,12 +5691,12 @@ namespace Xv2CoreLib.BAC
                     Flags = BitConverter.ToUInt16(rawBytes, offset + 6),
                     I_08 = BitConverter.ToInt32(rawBytes, offset + 8),
                     I_12 = BitConverter.ToInt32(rawBytes, offset + 12),
-                    BACEntryPass = BitConverter.ToUInt16(rawBytes, offset + 16),
+                    I_16 = BitConverter.ToUInt16(rawBytes, offset + 16),
                     I_18 = (rawBytes)[offset + 18],
-                    SkillType = (SkillTypes)(rawBytes)[offset + 19],
+                    SkillType = (BAC_Type8.EepkTypeEnum)(rawBytes)[offset + 19],
                     I_20 = BitConverter.ToUInt16(rawBytes, offset + 20),
                     I_22 = BitConverter.ToUInt16(rawBytes, offset + 22),
-                    HitboxSize = BitConverter.ToSingle(rawBytes, offset + 24),
+                    F_24 = BitConverter.ToSingle(rawBytes, offset + 24),
                     F_28 = BitConverter.ToSingle(rawBytes, offset + 28),
                     I_32 = BitConverter.ToInt32(rawBytes, offset + 32),
                     I_36 = BitConverter.ToInt32(rawBytes, offset + 36),
@@ -5747,12 +5726,12 @@ namespace Xv2CoreLib.BAC
                 bytes.AddRange(BitConverter.GetBytes(type.Flags));
                 bytes.AddRange(BitConverter.GetBytes(type.I_08));
                 bytes.AddRange(BitConverter.GetBytes(type.I_12));
-                bytes.AddRange(BitConverter.GetBytes(type.BACEntryPass));
+                bytes.AddRange(BitConverter.GetBytes(type.I_16));
                 bytes.Add(type.I_18);
                 bytes.Add(((byte)type.SkillType));
                 bytes.AddRange(BitConverter.GetBytes(type.I_20));
                 bytes.AddRange(BitConverter.GetBytes(type.I_22));
-                bytes.AddRange(BitConverter.GetBytes(type.HitboxSize));
+                bytes.AddRange(BitConverter.GetBytes(type.F_24));
                 bytes.AddRange(BitConverter.GetBytes(type.F_28));
                 bytes.AddRange(BitConverter.GetBytes(type.I_32));
                 bytes.AddRange(BitConverter.GetBytes(type.I_36));
